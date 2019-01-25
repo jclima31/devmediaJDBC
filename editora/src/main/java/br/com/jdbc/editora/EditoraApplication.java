@@ -1,5 +1,8 @@
 package br.com.jdbc.editora;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,20 +26,35 @@ public class EditoraApplication implements CommandLineRunner{
 		
 		System.out.println("--------------------------------------");
 		
-		insertEditora();
+		//insertEditora();
+		findAllEditoras();
 		
 		System.out.println("--------------------------------------");
+	}
+
+	private void findAllEditoras() {
+		
+		List<Editora> editoras = new ArrayList<Editora>();
+		editoras = editoraDao.findAll();
+		
+		for (Editora editora : editoras) {
+			System.out.println(editora.toString());
+		}
 	}
 
 	private void insertEditora() {
 		
 		Editora editora = new Editora();
-		editora.setRazaoSocial("Editora Sao Paulo Ltda");
-		editora.setCidade("São Paulo");
-		editora.setEmail("teste@gmail.com.br");
-		int ok = editoraDao.insert(editora);
+		editora.setRazaoSocial("Editora RJ Ltda");
+		editora.setCidade("Rio de Janeiro");
+		editora.setEmail("teste2@gmail.com.br");
 		
-		System.out.println("OK = "+ok);
+		//int ok = editoraDao.insert(editora);
+		//System.out.println("OK = "+ok);
+		
+		int id = editoraDao.save(editora);
+		System.out.println("ID = "+id);
+		
 	}
 
 }
