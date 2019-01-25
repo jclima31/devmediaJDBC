@@ -42,4 +42,8 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+.metadata/
+.recommenders/
+RemoteSystemsTempFiles/
+
 # End of https://www.gitignore.io/api/java,maven,java-web
