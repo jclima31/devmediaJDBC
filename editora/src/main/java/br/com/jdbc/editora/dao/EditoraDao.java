@@ -15,7 +15,7 @@ import br.com.jdbc.editora.dao.mapper.EditoraMapper;
 import br.com.jdbc.editora.model.Editora;
 
 @Repository
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:sql/editora.xml")
 public class EditoraDao {
 	
 	@Value("${sql.insert}")
