@@ -18,6 +18,20 @@ public class EditoraDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public List<Editora> findByRazaoSocial(String rz){
+		
+		String sql = "SELECT * FROM EDITORAS WHERE RAZAO_SOCIAL LIKE '%' ? '%'";
+		
+		return jdbcTemplate.query(sql, new String[]{rz}, new EditoraMapper());
+	}
+	
+	public List<Editora> findByCidades(String c1, String c2){
+		
+		String sql = "SELECT * FROM EDITORAS WHERE CIDADE LIKE ? OR CIDADE LIKE ?";
+		
+		return jdbcTemplate.query(sql, new EditoraMapper(), c1, c2);
+	}
+	
 	public Editora findById(int id){
 		
 		String sql = "SELECT * FROM EDITORAS WHERE ID_EDITORA = ?";
