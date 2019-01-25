@@ -18,6 +18,14 @@ public class EditoraDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public Editora findById(int id){
+		
+		String sql = "SELECT * FROM EDITORAS WHERE ID_EDITORA = ?";
+		
+		return jdbcTemplate.queryForObject(sql, new EditoraMapper(), id);
+		
+	}
+	
 	public List<Editora> findAll(){
 		
 		String sql = "SELECT * FROM EDITORAS";

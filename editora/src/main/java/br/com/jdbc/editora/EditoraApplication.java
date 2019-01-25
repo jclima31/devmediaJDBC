@@ -27,9 +27,16 @@ public class EditoraApplication implements CommandLineRunner{
 		System.out.println("--------------------------------------");
 		
 		//insertEditora();
-		findAllEditoras();
+		//findAllEditoras();
+		findByIdEditora();
 		
 		System.out.println("--------------------------------------");
+	}
+
+	private void findByIdEditora() {
+		
+		Editora editora = editoraDao.findById(1);
+		System.out.println(editora.toString());
 	}
 
 	private void findAllEditoras() {
