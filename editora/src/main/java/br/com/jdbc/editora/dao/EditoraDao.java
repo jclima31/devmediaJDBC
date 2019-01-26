@@ -21,36 +21,52 @@ public class EditoraDao {
 	@Value("${sql.insert}")
 	private String SQL_INSERT;
 	
+	@Value("${sql.findBy.razaosocial}")
+	private String SQL_FIND_BY_RAZAO_SOCIAL;
+	
+	@Value("${sql.findBy.cidades}")
+	private String SQL_FIND_BY_CIDADES;
+	
+	@Value("${sql.findBy.id}")
+	private String SQL_FIND_BY_ID;
+	
+	@Value("${sql.find.All}")
+	private String SQL_FIND_ALL;
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Editora> findByRazaoSocial(String rz){
 		
-		String sql = "SELECT * FROM EDITORAS WHERE RAZAO_SOCIAL LIKE '%' ? '%'";
-		
-		return jdbcTemplate.query(sql, new String[]{rz}, new EditoraMapper());
+		return jdbcTemplate.query(
+				SQL_FIND_BY_RAZAO_SOCIAL, 
+				new String[]{rz}, 
+				new EditoraMapper());
 	}
 	
 	public List<Editora> findByCidades(String c1, String c2){
 		
-		String sql = "SELECT * FROM EDITORAS WHERE CIDADE LIKE ? OR CIDADE LIKE ?";
-		
-		return jdbcTemplate.query(sql, new EditoraMapper(), c1, c2);
+		return jdbcTemplate.query(
+				SQL_FIND_BY_CIDADES, 
+				new EditoraMapper(), 
+				c1, 
+				c2);
 	}
 	
 	public Editora findById(int id){
 		
-		String sql = "SELECT * FROM EDITORAS WHERE ID_EDITORA = ?";
-		
-		return jdbcTemplate.queryForObject(sql, new EditoraMapper(), id);
+		return jdbcTemplate.queryForObject(
+				SQL_FIND_BY_ID, 
+				new EditoraMapper(), 
+				id);
 		
 	}
 	
 	public List<Editora> findAll(){
 		
-		String sql = "SELECT * FROM EDITORAS";
-		
-		return jdbcTemplate.query(sql, new EditoraMapper());
+		return jdbcTemplate.query(
+				SQL_FIND_ALL, 
+				new EditoraMapper());
 	}
 	
 	public Editora add(Editora editora){
@@ -77,8 +93,6 @@ public class EditoraDao {
 	}
 	
 	public int insert(Editora editora){
-		
-		//String sql = "INSERT INTO EDITORAS (RAZAO_SOCIAL, CIDADE, EMAIL) VALUES (?, ?, ?)";
 		
 		return jdbcTemplate.update(
 				SQL_INSERT, 

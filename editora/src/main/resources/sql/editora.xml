@@ -5,5 +5,23 @@
 	<entry key="sql.insert">
 	INSERT INTO 
 		EDITORAS (RAZAO_SOCIAL, CIDADE, EMAIL)
-	VALUES (?, ?, ?)</entry>
+	VALUES (?, ?, ?)
+	</entry>
+	
+	<entry key="sql.findBy.razaosocial">
+	SELECT * FROM EDITORAS WHERE RAZAO_SOCIAL LIKE '%' ? '%'
+	</entry>
+	
+	<entry key="sql.findBy.cidades">
+	SELECT * FROM EDITORAS WHERE CIDADE LIKE ? OR CIDADE LIKE ?
+	</entry>
+	
+	<entry key="sql.findBy.id">
+	SELECT * FROM EDITORAS WHERE ID_EDITORA = ?
+	</entry>
+	
+	<entry key="sql.find.All">
+	SELECT * FROM EDITORAS
+	</entry>
+	
 </properties>
