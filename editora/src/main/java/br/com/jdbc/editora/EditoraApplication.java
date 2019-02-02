@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.jdbc.editora.dao.EditoraDao;
+import br.com.jdbc.editora.dao.LivroDao;
 import br.com.jdbc.editora.model.Editora;
 
 @SpringBootApplication
@@ -16,6 +17,9 @@ public class EditoraApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EditoraDao editoraDao;
+	
+	@Autowired
+	private LivroDao livroDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EditoraApplication.class, args);
@@ -31,9 +35,16 @@ public class EditoraApplication implements CommandLineRunner{
 		//findByIdEditora();
 		//findByCidadesEditora();
 		//findByRazaoSocialEditora();
-		findCidadeAndEmailByIdEditora();
+		//findCidadeAndEmailByIdEditora();
+		execute();
 		
 		System.out.println("--------------------------------------");
+	}
+
+	private void execute() {
+		
+		livroDao.insert();
+		
 	}
 
 	private void findCidadeAndEmailByIdEditora() {
