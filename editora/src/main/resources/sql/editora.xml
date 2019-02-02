@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
 	<comment>SQL TABELAS EDITORAS</comment>
+
 	<entry key="sql.insert">
 	INSERT INTO 
 		EDITORAS (RAZAO_SOCIAL, CIDADE, EMAIL)
@@ -22,6 +24,22 @@
 	
 	<entry key="sql.find.All">
 	SELECT * FROM EDITORAS
+	</entry>
+	
+	<entry key="sql.count">
+	SELECT COUNT(*) FROM EDITORAS
+	</entry>
+	
+	<entry key="sql.findEmailBy.id">
+	SELECT EMAIL FROM EDITORAS WHERE ID_EDITORA = ?
+	</entry>
+	
+	<entry key="sql.findEmails">
+	SELECT EMAIL FROM EDITORAS
+	</entry>
+	
+	<entry key="sql.findCidadeAndEmailBy.id">
+		SELECT CIDADE, EMAIL FROM EDITORAS WHERE ID_EDITORA = ?
 	</entry>
 	
 </properties>

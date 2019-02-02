@@ -20,7 +20,15 @@ public class EditoraMapper implements RowMapper<Editora>{
 		return editora;
 	}
 	
-	
+	public class CidadeAndEmailMapper implements RowMapper<Editora>{
+		
+		public Editora mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Editora editora = new Editora();
+			editora.setCidade(rs.getString("CIDADE"));
+			editora.setEmail(rs.getString("EMAIL"));
+			return editora;
+		}
+	}
 	
 
 }
