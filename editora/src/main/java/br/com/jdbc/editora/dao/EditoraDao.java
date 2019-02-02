@@ -48,9 +48,31 @@ public class EditoraDao {
 	@Value("${sql.findCidadeAndEmailBy.id}")
 	private String SQL_FIND_CIDADE_AND_EMAIL_BY_ID;
 	
+	@Value("${sql.update}")
+	private String SQL_UPDATE;
+	
+	@Value("${sql.delete}")
+	private String SQL_DELETE;
+		
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	
+	public int delete(int id){
+		
+		return jdbcTemplate.update(SQL_DELETE, id);
+	}
+	
+	public int update(Editora editora){
+		
+		return jdbcTemplate.update(
+				SQL_UPDATE,
+				editora.getRazaoSocial(),
+				editora.getCidade(),
+				editora.getEmail(),
+				editora.getId()
+		);
+	}
 	
 	public Editora findCidadeAndEmailForId(int id){
 		

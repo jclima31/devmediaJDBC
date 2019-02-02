@@ -42,4 +42,16 @@
 		SELECT CIDADE, EMAIL FROM EDITORAS WHERE ID_EDITORA = ?
 	</entry>
 	
+	<entry key="sql.update">
+		UPDATE EDITORAS
+		SET RAZAO_SOCIAL = ?, CIDADE = ?, EMAIL = ?
+		WHERE ID_EDITORA = ? 
+	</entry>
+	
+	<entry key="sql.delete">
+		DELETE FROM EDITORAS
+		WHERE ID_EDITORA = ? 
+	</entry>
+	
+	
 </properties>
