@@ -1,21 +1,37 @@
 package br.com.jdbc.editora.dao;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import br.com.jdbc.editora.dao.mapper.AutorMapper;
 import br.com.jdbc.editora.model.Autor;
 
 @Repository
+@PropertySource("classpath:sql/autor.xml")
 public class AutorDao {
 
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcInsert simpleJdbcInsert;
+	@Autowired
+	private EditoraDao editoraDao;
+	
+	@Value("${sql.autor.findAll}")
+	private String SQL_FIND_ALL;
+	
+	public List<Autor> findAll(){
+		
+		return jdbcTemplate.query(SQL_FIND_ALL, new AutorMapper(editoraDao));
+	}
 	
 	public Autor Save(Autor autor){
 		SqlParameterSource parameterSource = new MapSqlParameterSource()
@@ -25,6 +41,7 @@ public class AutorDao {
 		Number key = simpleJdbcInsert.executeAndReturnKey(parameterSource);
 		
 		autor.setId(key.intValue());
+		
 		return autor;
 	}
 	
