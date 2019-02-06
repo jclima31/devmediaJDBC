@@ -3,6 +3,19 @@
 <properties>
 	<comment>SQL TABELA AUTORES</comment>
 	
+	<entry key="sql.autor.findAutoresBy.editora">
+		SELECT A.ID_AUTOR, A.NOME, A.EMAIL, A.ID_EDITORA
+		E.ID_EDITORA AS ED_ID_EDITORA,
+		E.RAZAO_SOCIAL,
+		E.CIDADE,
+		E.EMAIL AS ED_EMAIL 
+		FROM AUTORES A, EDITORAS E
+		WHERE 
+			A.ID_EDITORA = E.ID_EDITORA
+		AND 
+			E.RAZAO_SOCIAL LIKE ? 
+	</entry>
+	
 	<entry key="sql.autor.findAll">
 	SELECT * FROM AUTORES
 	</entry>
