@@ -50,7 +50,7 @@ public class EditoraApplication implements CommandLineRunner{
 
 	private void findEditoraWithAutores() {
 		
-		Editora editora = editoraDao.f
+		Editora editora = editoraDao.findEditoraWithAutores(2, 0, 2);
 	}
 
 	private void insertAutor() {

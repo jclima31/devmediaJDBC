@@ -18,6 +18,7 @@
 			WHERE E.ID_EDITORA = A.ID_EDITORA
 			AND 
 			E.ID_EDITORA = ?
+			LIMIT ?, ?
 			
 			
 	</entry>
