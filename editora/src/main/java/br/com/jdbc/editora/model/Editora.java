@@ -1,11 +1,15 @@
 package br.com.jdbc.editora.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Editora {
 	
 	private Integer id;
 	private String razaoSocial;
 	private String cidade;
 	private String email;
+	private List<Autor> autores = new ArrayList<>();
 	
 	public Integer getId() {
 		return id;
@@ -31,9 +35,16 @@ public class Editora {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public List<Autor> getAutores() {
+		return autores;
+	}
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
 	@Override
 	public String toString() {
-		return "Editora [id=" + id + ", razaoSocial=" + razaoSocial + ", cidade=" + cidade + ", email=" + email + "]";
+		return "Editora [id=" + id + ", razaoSocial=" + razaoSocial + ", cidade=" + cidade + ", email=" + email
+				+ ", autores=" + autores + "]";
 	}
 	
 }

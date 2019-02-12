@@ -4,6 +4,24 @@
 
 	<comment>SQL TABELAS EDITORAS</comment>
 
+	<entry key="sql.findEditoraWithAutores">
+		SELECT 
+			E.ID_EDITORA,
+			E.RAZAO_SOCIAL,
+			E.CIDADE,
+			E.EMAIL,
+			A.ID_AUTOR,
+			A.NOME,
+			A.EMAIL AS AUTOR_EMAIL,
+			A.ID_EDITORA AS AUTOR_ID_EDITORA
+			FROM EDITORAS E, AUTORES A
+			WHERE E.ID_EDITORA = A.ID_EDITORA
+			AND 
+			E.ID_EDITORA = ?
+			
+			
+	</entry>
+
 	<entry key="sql.insert">
 	INSERT INTO 
 		EDITORAS (RAZAO_SOCIAL, CIDADE, EMAIL)

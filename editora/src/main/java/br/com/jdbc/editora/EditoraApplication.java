@@ -42,9 +42,15 @@ public class EditoraApplication implements CommandLineRunner{
 		//findByRazaoSocialEditora();
 		//findCidadeAndEmailByIdEditora();
 		//execute();
-		insertAutor();
+		//insertAutor();
+		findEditoraWithAutores();
 		
 		System.out.println("--------------------------------------");
+	}
+
+	private void findEditoraWithAutores() {
+		
+		Editora editora = editoraDao.f
 	}
 
 	private void insertAutor() {
