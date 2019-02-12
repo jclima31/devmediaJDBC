@@ -10,9 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.jdbc.editora.dao.AutorDao;
 import br.com.jdbc.editora.dao.EditoraDao;
+import br.com.jdbc.editora.dao.LivroAutorDao;
 import br.com.jdbc.editora.dao.LivroDao;
 import br.com.jdbc.editora.model.Autor;
 import br.com.jdbc.editora.model.Editora;
+import br.com.jdbc.editora.model.Livro;
+import br.com.jdbc.editora.model.LivroAutor;
 
 @SpringBootApplication
 public class EditoraApplication implements CommandLineRunner{
@@ -25,6 +28,9 @@ public class EditoraApplication implements CommandLineRunner{
 	
 	@Autowired
 	private LivroDao livroDao;
+	
+	@Autowired
+	private LivroAutorDao livroAutorDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EditoraApplication.class, args);
@@ -43,9 +49,34 @@ public class EditoraApplication implements CommandLineRunner{
 		//findCidadeAndEmailByIdEditora();
 		//execute();
 		//insertAutor();
-		findEditoraWithAutores();
+		//findEditoraWithAutores();
+		
+		insertLivro();
 		
 		System.out.println("--------------------------------------");
+	}
+
+	private void insertLivro() {
+		String titulo = "Aprenda JSE em 40 dias";
+		int edicao = 1;
+		int paginas = 168;
+		String[] autores = {"Autor1", "Autor2"};
+		
+		Livro livro = new Livro();
+		livro.setTitulo(titulo);
+		livro.setEdicao(edicao);
+		livro.setPaginas(paginas);
+		
+		livro = livroDao.save(livro);
+		
+		Integer idLivro = livro.getId();
+		
+		for (String nome : autores) {
+			
+			Integer idAutor = autorDao.getIdByNome(nome);
+			
+			livroAutorDao.save(new LivroAutor(idLivro, idAutor));
+		}
 	}
 
 	private void findEditoraWithAutores() {
@@ -67,7 +98,7 @@ public class EditoraApplication implements CommandLineRunner{
 
 	private void execute() {
 		
-		livroDao.insert();
+		//livroDao.insert();
 		
 	}
 

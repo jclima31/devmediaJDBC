@@ -3,6 +3,11 @@
 <properties>
 	<comment>SQL TABELA AUTORES</comment>
 	
+	
+	<entry key="sql.autor.getIdByNome">
+		SELECT ID_AUTOR FROM AUTORES WHERE NOME LIKE ?
+	</entry>
+	
 	<entry key="sql.autor.findAutoresBy.editora">
 		SELECT A.ID_AUTOR, A.NOME, A.EMAIL, A.ID_EDITORA
 		E.ID_EDITORA AS ED_ID_EDITORA,

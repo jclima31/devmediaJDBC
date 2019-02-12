@@ -31,6 +31,13 @@ public class AutorDao {
 	@Value("${sql.autor.findAutoresBy.editora}")
 	private String SQL_FIND_AUTORES_BY_EDITORA;
 	
+	@Value("${sql.autor.getIdByNome}")
+	private String SQL_GET_ID_BY_NOME;
+	
+	public Integer getIdByNome(String nome) {
+		
+		return jdbcTemplate.queryForObject(SQL_GET_ID_BY_NOME, Integer.class, nome);
+	}
 	public List<Autor> findAutoresByEditora(String razaoSocial){
 		
 		return jdbcTemplate.query(SQL_FIND_AUTORES_BY_EDITORA, new AutorMapper().new AutorWithEditoraMapper(), razaoSocial);
@@ -61,5 +68,6 @@ public class AutorDao {
 				.usingColumns("NOME", "EMAIL", "ID_EDITORAS")
 				.usingGeneratedKeyColumns("ID_AUTOR");
 	}
+
 	
 }
