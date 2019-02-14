@@ -3,6 +3,26 @@
 <properties>
 	<comment>SQL TABELA AUTORES</comment>
 	
+	<entry key="sql.autor.findAutorWithLivros">
+		SELECT 
+			A.ID_AUTOR,
+			A.NOME,
+			A.EMAIL,
+			E.ID_EDITORA,
+			E.RAZAO_SOCIAL,
+			E.CIDADE,
+			E.EMAIL AS ED_EMAIL,
+			L.ID_LIVRO,
+			L.TITULO,
+			L.EDICAO,
+			L.PAGINAS
+		FROM AUTORES A, EDITORAS E, LIVROS L, LIVROS_AUTORES LA
+		WHERE L.ID_LIVRO = LA.ID_LIVRO
+		AND LA.ID_AUTOR = A.ID_AUTOR
+		AND A.ID_EDITORA = E.ID_EDITORA
+		AND A.ID_AUTOR = ?
+			
+	</entry>
 	
 	<entry key="sql.autor.getIdByNome">
 		SELECT ID_AUTOR FROM AUTORES WHERE NOME LIKE ?

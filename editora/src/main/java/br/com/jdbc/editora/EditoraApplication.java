@@ -50,10 +50,23 @@ public class EditoraApplication implements CommandLineRunner{
 		//execute();
 		//insertAutor();
 		//findEditoraWithAutores();
+		//findLivroWithAutores();
+		findAutorWithLivros();
 		
 		insertLivro();
 		
 		System.out.println("--------------------------------------");
+	}
+
+	private void findAutorWithLivros() {
+		Autor autor = autorDao.findAutorWithLivros(1);
+		
+	}
+
+	private void findLivroWithAutores() {
+		
+		Livro livro = livroDao.findLivroWithAutores(1);
+		
 	}
 
 	private void insertLivro() {
