@@ -3,6 +3,10 @@
 <properties>
 	<comment>SQL TABELAS LIVROS</comment>
 	
+	<entry key="sql.livro.findByEdicao">
+		SELECT * FROM LIVROS WHERE EDICAO = :edicao
+	</entry>
+	
 	<entry key="sql.livro.findLivroWithAutores">
 		SELECT 
 			L.ID_LIVRO, L.TITULO, L.EDICAO, L.PAGINAS,
