@@ -3,6 +3,10 @@
 <properties>
 	<comment>SQL TABELAS LIVROS</comment>
 	
+	<entry key="sql.livro.findByPaginas">
+		SELECT * FROM LIVROS WHERE PAGINAS BETWEEN :minimo AND :maximo
+	</entry>
+	
 	<entry key="sql.livro.findByEdicao">
 		SELECT * FROM LIVROS WHERE EDICAO = :edicao
 	</entry>

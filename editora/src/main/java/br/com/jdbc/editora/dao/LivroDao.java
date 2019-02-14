@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -37,11 +38,22 @@ public class LivroDao {
 	private String SQL_FIND_LIVRO_WITH_AUTORES;
 	
 	@Value("${sql.livro.findByEdicao}")
-	private String SQL_FIND_VY_EDICAO;
+	private String SQL_FIND_BY_EDICAO;
+	
+	@Value("${sql.livro.findByPaginas}")
+	private String SQL_FIND_BY_EDITORAS;
+	
+	
+	public List<Livro> findByPaginas(int min, int max){
+		SqlParameterSource parameters = new MapSqlParameterSource("minimo", min).addValue("maximo", max);
+		return namedParameter.query(SQL_FIND_BY_EDITORAS, 
+				parameters,
+				new LivroMapper());
+	}
 	
 	public List<Livro> findByEdicao(int edicao){
 		
-		return namedParameter.query(SQL_FIND_VY_EDICAO,
+		return namedParameter.query(SQL_FIND_BY_EDICAO,
 				new MapSqlParameterSource("edicao", edicao), 
 				new LivroMapper());
 	}
