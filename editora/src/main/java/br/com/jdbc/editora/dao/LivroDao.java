@@ -43,6 +43,15 @@ public class LivroDao {
 	@Value("${sql.livro.findByPaginas}")
 	private String SQL_FIND_BY_EDITORAS;
 	
+	@Value("${sql.livro.update}")
+	private String SQL_UPDATE;
+	
+	public int livroUpdate(Livro livro){
+		SqlParameterSource parameters = new MapSqlParameterSource("id", livro.getId()).addValue("titulo", livro.getTitulo()).addValue("edicao", livro.getEdicao())
+			.addValue("paginas", livro.getPaginas());
+		
+		return namedParameter.update(SQL_UPDATE, parameters);
+	}
 	
 	public List<Livro> findByPaginas(int min, int max){
 		SqlParameterSource parameters = new MapSqlParameterSource("minimo", min).addValue("maximo", max);
