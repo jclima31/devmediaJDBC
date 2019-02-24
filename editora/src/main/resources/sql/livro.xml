@@ -2,6 +2,11 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment>SQL TABELAS LIVROS</comment>
+
+	<entry key="sql.livro.findTituloAndLivro">
+		SELECT * FROM LIVROS
+		WHERE TITULO LIKE :titulo AND EDICAO = :edicao
+	</entry>
 	
 	<entry key="sql.livro.update">
 		UPDATE 

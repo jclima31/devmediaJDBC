@@ -46,9 +46,23 @@ public class LivroDao {
 	@Value("${sql.livro.update}")
 	private String SQL_UPDATE;
 	
+	@Value("${sql.livro.findTituloAndLivro}")
+	private String SQL_FIND_BY_TITULO_AND_EDICAO;
+	
+	
+	
+	
+	public Livro findByTituloAndEdicao(String titulo, int edicao){
+		Livro livro = new Livro();
+		livro.setTitulo(titulo);
+		livro.setEdicao(edicao);
+		
+		return namedParameter.queryForObject(SQL_FIND_BY_TITULO_AND_EDICAO, 
+				new BeanPropertySqlParameterSource(livro), 
+				new LivroMapper());
+	}
 	
 	public int alter(Livro livro){
-		
 		return namedParameter.update(
 				SQL_UPDATE, 
 				new BeanPropertySqlParameterSource(livro));
