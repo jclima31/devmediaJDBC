@@ -1,5 +1,6 @@
 package br.com.jdbc.editora.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -63,6 +67,34 @@ public class EditoraDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public void saveBatch(final List<Editora> editoras) {
+		SimpleJdbcInsert simple = new SimpleJdbcInsert(jdbcTemplate)
+				.withTableName("Editoras")
+				.usingColumns("RAZAO_SOCIAL", "CIDADE", "EMAIL");
+		
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(editoras.toArray());
+		
+		simple.executeBatch(batch);
+	}
+	
+	public void insertBatch(final List<Editora> editoras){
+		jdbcTemplate.batchUpdate(SQL_INSERT, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				Editora editora = editoras.get(i);
+				ps.setString(1, editora.getRazaoSocial());
+				ps.setString(2, editora.getCidade());
+				ps.setString(3, editora.getEmail());
+				
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return editoras.size();
+			}
+		});
+	}
 	
 	public Editora findEditoraWithAutores(int id, int page, int size){
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_FIND_EDIORA_WITH_AUTORES, id, page * size	, size);
