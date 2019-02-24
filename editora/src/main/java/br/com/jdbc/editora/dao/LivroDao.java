@@ -53,6 +53,15 @@ public class LivroDao {
 	@Value("${sql.livro.findTituloAndLivro}")
 	private String SQL_FIND_BY_TITULO_AND_EDICAO;
 	
+	public String callFunctionTotalLivrosByAutor(int idAutor){
+		
+		simpleJdbcCall.withFunctionName("function_conta_livros_autor");
+		
+		String texto = simpleJdbcCall.executeObject(String.class, idAutor);
+		
+		return texto;
+	}
+	
 	public List<String> callProcedureInfoLivro(int idLivro){
 		SqlParameterSource in = new MapSqlParameterSource("in_id", idLivro);
 		
