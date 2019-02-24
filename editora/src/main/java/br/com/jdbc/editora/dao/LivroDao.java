@@ -1,6 +1,7 @@
 package br.com.jdbc.editora.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,19 @@ public class LivroDao {
 	@Value("${sql.livro.findTituloAndLivro}")
 	private String SQL_FIND_BY_TITULO_AND_EDICAO;
 	
+	public List<String> callProcedureInfoLivro(int idLivro){
+		SqlParameterSource in = new MapSqlParameterSource("in_id", idLivro);
+		
+		simpleJdbcCall.withProcedureName("procedure_info");
+		
+		Map info = simpleJdbcCall.execute(in);
+		
+		String titulo = (String) info.get("out_titulo");
+		String autor = (String) info.get("out_autor");
+		String editora = (String) info.get("out_editora");
+		
+		return Arrays.asList(titulo, autor, editora);
+	}
 	
 	public Map<String, Object> callProcedureUpperCase(int idLivro){
 		
