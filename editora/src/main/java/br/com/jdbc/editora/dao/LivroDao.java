@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -26,12 +27,14 @@ public class LivroDao {
 
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedParameter;
+	private SimpleJdbcCall simpleJdbcCall;
 
 	@Autowired
 	public LivroDao(DataSource dataSource) {
 		super();
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.namedParameter = new NamedParameterJdbcTemplate(dataSource);
+		this.simpleJdbcCall = simpleJdbcCall;
 	}
 
 	@Value("${sql.livro.findLivroWithAutores}")
@@ -50,7 +53,14 @@ public class LivroDao {
 	private String SQL_FIND_BY_TITULO_AND_EDICAO;
 	
 	
-	
+	public Map<String, Object> callProcedureUpperCase(int idLivro){
+		
+		simpleJdbcCall.withProcedureName("uppercase_titulo");
+		
+		Map<String, Object> map = simpleJdbcCall.execute(idLivro);
+		
+		return map;
+	}
 	
 	public Livro findByTituloAndEdicao(String titulo, int edicao){
 		Livro livro = new Livro();
