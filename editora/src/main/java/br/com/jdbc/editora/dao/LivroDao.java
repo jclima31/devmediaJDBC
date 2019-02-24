@@ -46,6 +46,14 @@ public class LivroDao {
 	@Value("${sql.livro.update}")
 	private String SQL_UPDATE;
 	
+	
+	public int alter(Livro livro){
+		
+		return namedParameter.update(
+				SQL_UPDATE, 
+				new BeanPropertySqlParameterSource(livro));
+	}
+	
 	public int livroUpdate(Livro livro){
 		SqlParameterSource parameters = new MapSqlParameterSource("id", livro.getId()).addValue("titulo", livro.getTitulo()).addValue("edicao", livro.getEdicao())
 			.addValue("paginas", livro.getPaginas());
