@@ -1,5 +1,7 @@
 package br.com.jdbc.editora.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -24,10 +27,14 @@ import br.com.jdbc.editora.model.Livro;
 @PropertySource("classpath:sql/autor.xml")
 public class AutorDao {
 
+	private static final String SQL_DELETE = null;
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcInsert simpleJdbcInsert;
 	@Autowired
 	private EditoraDao editoraDao;
+	
+	@Value("${sql.autor.update}")
+	private String SQL_UPDATE;
 	
 	@Value("${sql.autor.findAll}")
 	private String SQL_FIND_ALL;
@@ -41,6 +48,44 @@ public class AutorDao {
 	@Value("${sql.autor.findAutorWithLivros}")
 	private String SQL_FIND_AUTOR_WITH_LIVROS;
 
+	public void deleteBatch(final List<Integer> ids){
+		jdbcTemplate.batchUpdate(SQL_DELETE,
+			new BatchPreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					ps.setInt(1, ids.get(i));
+					
+				}
+				
+				@Override
+				public int getBatchSize() {
+					// TODO Auto-generated method stub
+					return ids.size();
+				}
+			});
+	}
+	
+	public void updateBatch(final List<Autor> autores){
+		jdbcTemplate.batchUpdate(SQL_UPDATE, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ps.setString(1, autores.get(i).getNome());
+				ps.setString(2, autores.get(i).getEmail());
+				ps.setInt(3, autores.get(i).getEditora().getId());
+				ps.setInt(4, autores.get(i).getEditora().getId());
+				
+			}
+			
+			@Override
+			public int getBatchSize() {
+				
+				return autores.size();
+			}
+		});
+	}
+	
 	public Autor findAutorWithLivros(int idAutor){
 		
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_FIND_AUTOR_WITH_LIVROS, idAutor);

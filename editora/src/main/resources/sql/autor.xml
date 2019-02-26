@@ -24,6 +24,15 @@
 			
 	</entry>
 	
+	<entry key="sql.autor.update">
+		UPDATE
+			AUTORES
+		SET
+			NOME = ?, EMAIL = ?, ID_EDITORA = ?
+		WHERE
+			ID_AUTOR = ?	
+	</entry>
+	
 	<entry key="sql.autor.getIdByNome">
 		SELECT ID_AUTOR FROM AUTORES WHERE NOME LIKE ?
 	</entry>
